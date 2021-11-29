@@ -1,0 +1,54 @@
+{
+  "name": "to-do-list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/app",
+    "dev": "nodemon src/app",
+    "test": "SET NODE_ENV=test& jest --passWithNoTests --detectOpenHandles",
+    "test:watch": "jest --watch --detectOpenHandles",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/clarafonseca/to-do-fullstack.git"
+  },
+  "author": "Ana Clara Fonseca",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/clarafonseca/to-do-fullstack/issues"
+  },
+  "homepage": "https://github.com/clarafonseca/to-do-fullstack#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.12.0-alpha.1",
+    "sequelize-cli": "^6.3.0",
+    "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^13.2.1",
+    "@commitlint/config-angular": "^13.2.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-prettier": "^4.0.0",
+    "git-commit-msg-linter": "^3.2.8",
+    "husky": "^7.0.4",
+    "jest": "^27.1.0",
+    "lint-staged": "^11.1.2",
+    "nodemon": "^2.0.13",
+    "pre-commit": "^1.2.2",
+    "prettier": "^2.4.1",
+    "supertest": "^6.1.6"
+  },
+  "lint-staged": {
+    "src/**/*.js": [
+      "npm run test --findRelatedTests --bail"
+    ]
+  }
+}
