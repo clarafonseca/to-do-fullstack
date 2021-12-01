@@ -1,5 +1,5 @@
-const exampleController = require('./example.controller')
+const taskController = require('./task.controller')
 
 module.exports = {
-  exampleController
+  taskController
 }

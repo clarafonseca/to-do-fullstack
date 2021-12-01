@@ -1,5 +1,5 @@
-const { example } = require('./example.routes')
+const { task } = require('./task.routes')
 
 module.exports = {
-  example
+  task
 }
