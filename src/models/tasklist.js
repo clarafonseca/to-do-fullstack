@@ -4,21 +4,12 @@ const config = require('../config/database/sequelize');
 class Task extends Model {}
 Task.init(
   {
-    taskListId: {
-      type: DataTypes.NUMBER,
-      allowNull: true,
-    },
     name: DataTypes.STRING,
-    concluded: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: false,
-    },
   },
   {
     sequelize: new Sequelize(config),
-    modelName: 'Task',
-    tableName: 'tasks',
+    modelName: 'TaskList',
+    tableName: 'task_lists',
     paranoid: true,
   },
 );

@@ -1,5 +1,7 @@
-const taskService = require('./task')
+const taskService = require('./task');
+const taskListService = require('./taskList');
 
 module.exports = {
-  taskService
-}
+  taskService,
+  taskListService,
+};

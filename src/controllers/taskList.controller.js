@@ -1,9 +1,9 @@
-const { taskService } = require('../services');
+const { taskListService } = require('../services');
 
 module.exports = {
   create: async (req, res) => {
     try {
-      const response = await taskService.create(req.body);
+      const response = await taskListService.create(req.body);
       return res.status(201).json(response);
     } catch (error) {
       console.error(error);
@@ -18,7 +18,7 @@ module.exports = {
   },
   read: async (req, res) => {
     try {
-      const response = await taskService.read(req.params.id);
+      const response = await taskListService.read(req.params.id);
       return res.status(200).json(response);
     } catch (error) {
       console.error(error);
@@ -29,7 +29,7 @@ module.exports = {
   },
   update: async (req, res) => {
     try {
-      const response = await taskService.update(req.params.id, req.body);
+      const response = await taskListService.update(req.params.id, req.body);
       return res.status(200).json(response);
     } catch (error) {
       console.error(error);
@@ -44,8 +44,24 @@ module.exports = {
   },
   delete: async (req, res) => {
     try {
-      const response = await taskService.deleteTask(req.params.id);
+      const response = await taskListService.deleteTaskList(req.params.id);
       return res.status(204).json(response);
+    } catch (error) {
+      console.error(error);
+      return res
+        .status(error.status || 500)
+        .json(error.message);
+    }
+  },
+  list: async (req, res) => {
+    try {
+      const response = await taskListService.list(req.query);
+
+      if (!response || response.data.length === 0) {
+        return res.status(204).end();
+      }
+
+      return res.status(200).json(response);
     } catch (error) {
       console.error(error);
       return res

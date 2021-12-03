@@ -6,9 +6,9 @@
   "scripts": {
     "start": "node src/app",
     "dev": "nodemon src/app",
-    "pretest": "SET NODE_ENV=test sequelize db:migrate",
-    "test": "SET NODE_ENV=test jest --detectOpenHandles",
-    "posttest": "SET NODE_ENV=test sequelize db:migrate:undo:all",
+    "pretest": "SET NODE_ENV=test& sequelize db:migrate",
+    "test": "SET NODE_ENV=test& jest --detectOpenHandles",
+    "posttest": "SET NODE_ENV=test& sequelize db:migrate:undo:all",
     "prepare": "husky install"
   },
   "repository": {
@@ -37,14 +37,11 @@
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.24.2",
-    "eslint-plugin-prettier": "^4.0.0",
     "git-commit-msg-linter": "^3.2.8",
     "husky": "^7.0.4",
     "jest": "^27.1.0",
     "lint-staged": "^11.1.2",
     "nodemon": "^2.0.13",
-    "pre-commit": "^1.2.2",
-    "prettier": "^2.4.1",
     "supertest": "^6.1.6"
   },
   "lint-staged": {

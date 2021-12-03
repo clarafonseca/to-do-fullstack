@@ -1,25 +1,21 @@
-const { tasksRepository } = require('../../repositories')
-const { messages } = require('../../utils')
+/* eslint-disable no-restricted-globals */
+const { tasksRepository } = require('../../repositories');
+const { messages } = require('../../utils');
 
-module.exports.deleteTask = async (body) => {
-  const schema = yup.object().shape({
-    id: yup.number().required(),
-  })
+module.exports.deleteTask = async (id) => {
+  if (!id || isNaN(id)) {
+    throw Object.assign(new Error(messages.invalidFields), {
+      status: 404,
+    });
+  }
 
-  const validated = await schema.validate(body, {
-    stripUnknown: true
-  })
-
-  const task = await tasksRepository.getById(validated.id)
+  const task = await tasksRepository.getById(id);
 
   if (!task) {
     throw Object.assign(new Error(messages.notFound('task')), {
-      status: 404
-    })
+      status: 404,
+    });
   }
 
-  const taskDeleted = tasksRepository.destroy(validated.id)
-  if (taskDeleted) {
-    return 'task-deleted'
-  }
-}
+  tasksRepository.destroy(id);
+};

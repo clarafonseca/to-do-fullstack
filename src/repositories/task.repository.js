@@ -1,4 +1,4 @@
-const { Task } = require('../models')
+const { Task } = require('../models');
 
 module.exports = {
   list: (query) => Task.findAndCountAll(query),
@@ -6,5 +6,5 @@ module.exports = {
   get: (params) => Task.findOne({ where: params }),
   create: (params) => Task.create(params),
   update: (task) => task.save(),
-  destroy: (id) => Task.destroy({ where: { id } })
-}
+  destroy: (id) => Task.destroy({ where: { id } }),
+};

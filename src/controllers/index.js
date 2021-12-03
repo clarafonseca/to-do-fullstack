@@ -1,5 +1,7 @@
-const taskController = require('./task.controller')
+const taskController = require('./task.controller');
+const taskListController = require('./taskList.controller');
 
 module.exports = {
-  taskController
-}
+  taskController,
+  taskListController,
+};

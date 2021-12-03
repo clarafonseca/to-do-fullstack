@@ -1,29 +1,15 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('tasks', {
+    await queryInterface.createTable('task_lists', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      task_list_id: {
-        type: Sequelize.DataTypes.INTEGER,
-        allowNull: true,
-        references: {
-          model: 'task_lists',
-          key: 'id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-      },
       name: {
-        allowNull: false,
         type: Sequelize.STRING,
-      },
-      concluded: {
         allowNull: false,
-        type: Sequelize.BOOLEAN,
       },
       created_at: {
         allowNull: false,
@@ -40,6 +26,6 @@ module.exports = {
     });
   },
   down: async (queryInterface) => {
-    await queryInterface.dropTable('tasks');
+    await queryInterface.dropTable('task_lists');
   },
 };

@@ -1,5 +1,7 @@
-const { task } = require('./task.routes')
+const { task } = require('./task.routes');
+const { taskList } = require('./taskList.routes');
 
 module.exports = {
-  task
-}
+  task,
+  taskList,
+};
