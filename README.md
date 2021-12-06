@@ -41,7 +41,7 @@ npx sequelize-cli db:seed:all
 🎯 http://localhost:3001/api/{route:key}/
 ```
 
-Por fim teste a API pelo [postman](https://go.postman.co/workspace/My-Workspace~cb2048c7-ea34-4b6f-86f9-b660cc7dc83a/collection/13485498-2822b947-145b-40e1-988d-701f2f20640f)
+Por fim, teste a API pelo [postman](https://go.postman.co/workspace/My-Workspace~cb2048c7-ea34-4b6f-86f9-b660cc7dc83a/collection/13485498-2822b947-145b-40e1-988d-701f2f20640f)
 
 # Iniciando o front-end
 
