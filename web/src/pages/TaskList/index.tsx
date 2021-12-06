@@ -3,24 +3,12 @@ import React, { useEffect, useState } from 'react'
 
 import ListFooter from '../../components/ListFooter'
 import Task from '../../components/Task'
+import Nav from '../../components/Nav'
 
-import {
-  Wrapper,
-  Nav,
-  GoBack,
-  Icon,
-  EditBtn,
-  Content,
-  Title,
-  ErrorMessage,
-  OptionsContainer,
-  Options,
-  Option
-} from './styles'
+import { Wrapper, Content, Title, ErrorMessage } from './styles'
 
 import { api } from '../../services/api'
 import { useParams } from 'react-router-dom'
-import { HiDotsHorizontal } from 'react-icons/hi'
 import Modal from '../../components/Modal'
 import { Input } from '../Home/styles'
 
@@ -47,6 +35,7 @@ const TaskList: React.FC = () => {
   const [newTaskModal, setNewTaskModal] = useState(false)
   const [error, setError] = useState('')
   const [filterConcluded, setFilterConcluded] = useState(false)
+  const [inputTask, setInputTask] = useState('')
 
   const loadTaskLists = async () => {
     try {
@@ -94,23 +83,10 @@ const TaskList: React.FC = () => {
   return (
     <>
       <Wrapper>
-        <Nav>
-          <GoBack to="/">
-            <Icon />
-            Listas
-          </GoBack>
-          <EditBtn>
-            <HiDotsHorizontal />
-          </EditBtn>
-          <OptionsContainer>
-            <Options>
-              <Option onClick={() => setFilterConcluded(true)}>
-                Filtrar concluidos
-              </Option>
-              <Option>Deletar Lista</Option>
-            </Options>
-          </OptionsContainer>
-        </Nav>
+        <Nav
+          handleDelete={() => console.log('A')}
+          handleFilter={() => setFilterConcluded(!filterConcluded)}
+        />
         <Content>
           <Title>{taskList ? taskList.name : 'Lista de Tarefas'}</Title>
           {error ? (
@@ -149,12 +125,18 @@ const TaskList: React.FC = () => {
           action="Nova Tarefa"
           isOpen={newTaskModal}
           toggleModalFunction={() => setNewTaskModal(false)}
-          handleAction={() => handleNewTask('Tarefa')}
+          handleAction={() => {
+            inputTask
+              ? handleNewTask(inputTask)
+              : alert('Insira nome da tarefas.')
+          }}
           modalContent={
-            <>
-              <Input placeholder="Lista" />
-              <Input placeholder="Tarefa" />
-            </>
+            <Input
+              placeholder="Nome da Lista"
+              onChange={(e) => {
+                setInputTask(e.target.value)
+              }}
+            />
           }
         ></Modal>
       </Wrapper>

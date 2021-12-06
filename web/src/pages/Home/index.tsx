@@ -4,6 +4,7 @@ import SearchBar from '../../components/SearchBar'
 import TaskList from '../../components/TaskList'
 import HomeFooter from '../../components/HomeFooter'
 import Modal from '../../components/Modal'
+import SelectIpt from '../../components/Select'
 
 import { Wrapper, Title, ListContainer, ErrorMessage, Input } from './styles'
 
@@ -22,6 +23,9 @@ const Home: React.FC = () => {
   const [newTaskModal, setNewTaskModal] = useState(false)
   const [newTaskListModal, setNewTaskListModal] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
+  const [inputTaskList, setInputTaskList] = useState('')
+  const [inputTask, setInputTask] = useState('')
+  const [inputTaskListId, setInputTaskListId] = useState('')
 
   const loadTaskLists = async () => {
     try {
@@ -61,10 +65,11 @@ const Home: React.FC = () => {
     }
   }
 
-  const handleNewTask = async (taskListId?: number, name?: string) => {
+  const handleNewTask = async (taskListId: string, name: string) => {
     try {
+      const id = Number.parseInt(taskListId, 10)
       const response = await api.post('/task', {
-        taskListId: taskListId,
+        taskListId: id,
         name: name,
         concluded: false
       })
@@ -135,11 +140,30 @@ const Home: React.FC = () => {
           action="Nova Tarefa"
           isOpen={newTaskModal}
           toggleModalFunction={() => setNewTaskModal(false)}
-          handleAction={() => handleNewTask(7, 'Tarefa')}
+          handleAction={() =>
+            inputTask
+              ? handleNewTask(inputTaskListId, inputTask)
+              : alert('Insira o nome da tarefa.')
+          }
           modalContent={
             <>
-              <Input placeholder="Lista" />
-              <Input placeholder="Tarefa" />
+              <SelectIpt
+                label="Listas:"
+                labelFor="listas"
+                options={taskLists.map((task) => {
+                  const stringId = task.id.toString()
+                  return { label: task.name, value: stringId }
+                })}
+                handleChange={(newValue: { label: string; value: string }) => {
+                  setInputTaskListId(newValue.value)
+                }}
+              ></SelectIpt>
+              <Input
+                placeholder="Tarefa"
+                onChange={(e) => {
+                  setInputTask(e.target.value)
+                }}
+              />
             </>
           }
         ></Modal>
@@ -147,8 +171,19 @@ const Home: React.FC = () => {
           action="Nova Lista"
           isOpen={newTaskListModal}
           toggleModalFunction={() => setNewTaskListModal(false)}
-          handleAction={() => handleNewTaskList('Lista de Tarefas')}
-          modalContent={<Input placeholder="Nome da Lista" />}
+          handleAction={() =>
+            inputTaskList
+              ? handleNewTaskList(inputTaskList)
+              : alert('Insira nome da lista de tarefas.')
+          }
+          modalContent={
+            <Input
+              placeholder="Nome da Lista"
+              onChange={(e) => {
+                setInputTaskList(e.target.value)
+              }}
+            />
+          }
         ></Modal>
       </Wrapper>
     </>

@@ -16,17 +16,13 @@ const HomeFooter: React.FC<Props> = ({ handleNewTask, handleNewTaskList }) => {
   return (
     <>
       <Container>
-        <AddNewTask onClick={() => handleNewTask && handleNewTask()}>
+        <AddNewTask onClick={handleNewTask}>
           <IconContainer>
             <Icon></Icon>
           </IconContainer>
           Nova Tarefa
         </AddNewTask>
-        <AddNewTaskList
-          onClick={() => handleNewTaskList && handleNewTaskList()}
-        >
-          Nova Lista
-        </AddNewTaskList>
+        <AddNewTaskList onClick={handleNewTaskList}>Nova Lista</AddNewTaskList>
       </Container>
     </>
   )

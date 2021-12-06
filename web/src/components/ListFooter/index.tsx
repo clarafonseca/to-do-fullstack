@@ -9,7 +9,7 @@ const ListFooter: React.FC<Props> = ({ handleNewTask }) => {
   return (
     <>
       <Container>
-        <AddNewTask onClick={() => handleNewTask && handleNewTask()}>
+        <AddNewTask onClick={handleNewTask}>
           <IconContainer>
             <Icon></Icon>
           </IconContainer>

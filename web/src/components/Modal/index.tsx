@@ -33,9 +33,7 @@ const Modal: React.FC<Props> = ({
               <HiX />
             </CancelBtn>
             <ActionName>{action}</ActionName>
-            <ConfirmBtn onClick={() => handleAction && handleAction()}>
-              Ok
-            </ConfirmBtn>
+            <ConfirmBtn onClick={handleAction}>Ok</ConfirmBtn>
           </Nav>
           {modalContent}
         </Container>

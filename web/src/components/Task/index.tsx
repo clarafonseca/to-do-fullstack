@@ -12,10 +12,7 @@ const Task: React.FC<Props> = ({ name, concluded, handleClick }) => {
   return (
     <>
       <Container>
-        <RoundCheckbox
-          concluded={concluded}
-          onClick={() => handleClick && handleClick()}
-        />
+        <RoundCheckbox concluded={concluded} onClick={handleClick} />
         <Name>{name}</Name>
       </Container>
     </>
