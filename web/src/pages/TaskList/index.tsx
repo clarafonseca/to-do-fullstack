@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
 
 import ListFooter from '../../components/ListFooter'
@@ -11,13 +12,17 @@ import {
   EditBtn,
   Content,
   Title,
-  ListContainer,
-  ErrorMessage
+  ErrorMessage,
+  OptionsContainer,
+  Options,
+  Option
 } from './styles'
 
 import { api } from '../../services/api'
 import { useParams } from 'react-router-dom'
 import { HiDotsHorizontal } from 'react-icons/hi'
+import Modal from '../../components/Modal'
+import { Input } from '../Home/styles'
 
 type ParamsProps = {
   id: string
@@ -26,7 +31,6 @@ type ParamsProps = {
 type TaskListParms = {
   id: number
   name: string
-  tasksCount: number
   Tasks: [
     {
       id: number
@@ -40,21 +44,52 @@ const TaskList: React.FC = () => {
   const { id } = useParams<ParamsProps>()
 
   const [taskList, setTaskList] = useState<TaskListParms>()
+  const [newTaskModal, setNewTaskModal] = useState(false)
   const [error, setError] = useState('')
+  const [filterConcluded, setFilterConcluded] = useState(false)
+
+  const loadTaskLists = async () => {
+    try {
+      const response = await api.get(`/taskList/${id}`)
+      if (response.data) {
+        setTaskList(response.data)
+      }
+    } catch (error) {
+      setError('Falha ao carregar a lista.')
+    }
+  }
+  const handleConcludedTask = async (id: number, concluded: boolean) => {
+    try {
+      const response = await api.put(`/task/${id}`, { concluded: concluded })
+      if (response.status === 200) {
+        loadTaskLists()
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleNewTask = async (name: string) => {
+    try {
+      const response = await api.post('/task', {
+        taskListId: id,
+        name: name,
+        concluded: false
+      })
+
+      if (response.status === 201) {
+        loadTaskLists()
+      }
+      setNewTaskModal(false)
+    } catch (error) {
+      console.log(error)
+      setNewTaskModal(false)
+    }
+  }
 
   useEffect(() => {
-    const loadTaskLists = async () => {
-      try {
-        const response = await api.get(`/taskList/${id}`)
-        if (response.data) {
-          setTaskList(response.data)
-        }
-      } catch (error) {
-        setError('Falha ao carregar a lista.')
-      }
-    }
     loadTaskLists()
-  }, [id])
+  }, [])
 
   return (
     <>
@@ -67,44 +102,61 @@ const TaskList: React.FC = () => {
           <EditBtn>
             <HiDotsHorizontal />
           </EditBtn>
+          <OptionsContainer>
+            <Options>
+              <Option onClick={() => setFilterConcluded(true)}>
+                Filtrar concluidos
+              </Option>
+              <Option>Deletar Lista</Option>
+            </Options>
+          </OptionsContainer>
         </Nav>
         <Content>
           <Title>{taskList ? taskList.name : 'Lista de Tarefas'}</Title>
           {error ? (
-            <>
-              <ErrorMessage>{error}</ErrorMessage>
-              <Task
-                id={1}
-                name={'Limpar a casa'}
-                concluded={false}
-                handleClick={() => console.log('a')}
-              ></Task>
-              <Task
-                id={1}
-                name={'Comprar frutas'}
-                concluded={true}
-                handleClick={() => console.log('a')}
-              ></Task>
-            </>
+            <ErrorMessage>{error}</ErrorMessage>
+          ) : taskList ? (
+            taskList.Tasks.sort((a, b) => {
+              return a.id - b.id
+            })
+              .filter((task) => {
+                if (!filterConcluded) {
+                  return task
+                }
+                if (task.concluded) {
+                  return task
+                }
+              })
+              .map((task) => {
+                return (
+                  <Task
+                    key={task.id}
+                    id={task.id}
+                    name={task.name}
+                    handleClick={() =>
+                      handleConcludedTask(task.id, !task.concluded)
+                    }
+                    concluded={task.concluded}
+                  ></Task>
+                )
+              })
           ) : (
-            <ListContainer>
-              {taskList
-                ? taskList.Tasks.map((task) => {
-                    return (
-                      <Task
-                        key={task.id}
-                        id={task.id}
-                        name={task.name}
-                        concluded={task.concluded}
-                        handleClick={() => (task.concluded = !task.concluded)}
-                      ></Task>
-                    )
-                  })
-                : ''}
-            </ListContainer>
+            ''
           )}
         </Content>
-        <ListFooter></ListFooter>
+        <ListFooter handleNewTask={() => setNewTaskModal(true)}></ListFooter>
+        <Modal
+          action="Nova Tarefa"
+          isOpen={newTaskModal}
+          toggleModalFunction={() => setNewTaskModal(false)}
+          handleAction={() => handleNewTask('Tarefa')}
+          modalContent={
+            <>
+              <Input placeholder="Lista" />
+              <Input placeholder="Tarefa" />
+            </>
+          }
+        ></Modal>
       </Wrapper>
     </>
   )

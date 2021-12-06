@@ -44,8 +44,26 @@ export const Icon = styled(HiChevronLeft)`
   font-size: 24px;
 `
 export const EditBtn = styled.button`
+  position: relative;
   border-radius: 50%;
   border: 2px solid #007aff;
   color: #007aff;
   padding: 4px 4px 0 4px;
+`
+export const OptionsContainer = styled.div`
+  position: absolute;
+  right: 15px;
+  top: 60px;
+  border-radius: 8px;
+  background-color: white;
+`
+export const Options = styled.ul`
+  list-style: none;
+`
+export const Option = styled.li`
+  cursor: pointer;
+  padding: 8px;
+  &:hover {
+    color: #007aff;
+  }
 `

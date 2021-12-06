@@ -1,4 +1,4 @@
-const { taskService } = require('../services');
+const { taskService } = require("../services");
 
 module.exports = {
   create: async (req, res) => {
@@ -8,11 +8,7 @@ module.exports = {
     } catch (error) {
       console.error(error);
       return res
-        .status(
-          error.name === 'ValidationError'
-            ? 422
-            : error.status || 500,
-        )
+        .status(error.name === "ValidationError" ? 422 : error.status || 500)
         .json(error.message);
     }
   },
@@ -22,9 +18,7 @@ module.exports = {
       return res.status(200).json(response);
     } catch (error) {
       console.error(error);
-      return res
-        .status(error.status || 500)
-        .json(error.message);
+      return res.status(error.status || 500).json(error.message);
     }
   },
   update: async (req, res) => {
@@ -34,11 +28,7 @@ module.exports = {
     } catch (error) {
       console.error(error);
       return res
-        .status(
-          error.name === 'ValidationError'
-            ? 422
-            : error.status || 500,
-        )
+        .status(error.name === "ValidationError" ? 422 : error.status || 500)
         .json(error.message);
     }
   },
@@ -48,9 +38,16 @@ module.exports = {
       return res.status(204).json(response);
     } catch (error) {
       console.error(error);
-      return res
-        .status(error.status || 500)
-        .json(error.message);
+      return res.status(error.status || 500).json(error.message);
+    }
+  },
+  list: async (req, res) => {
+    try {
+      const response = await taskService.list(req.query);
+      return res.status(200).json(response);
+    } catch (error) {
+      console.error(error);
+      return res.status(error.status || 500).json(error.message);
     }
   },
 };

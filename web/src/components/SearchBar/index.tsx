@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { InputHTMLAttributes } from 'react'
 import { InputGroup, Input, Icon } from './styles'
 
-const SearchBar: React.FC = function () {
+type Props = InputHTMLAttributes<HTMLInputElement> & {
+  placeholder: string
+}
+
+const SearchBar: React.FC<Props> = ({ placeholder, ...rest }) => {
   return (
     <>
       <InputGroup>
-        <Input placeholder="Buscar"></Input>
+        <Input type="test" {...rest} placeholder={placeholder}></Input>
         <Icon></Icon>
       </InputGroup>
     </>

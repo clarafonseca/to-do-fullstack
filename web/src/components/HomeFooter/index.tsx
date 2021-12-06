@@ -7,17 +7,26 @@ import {
   AddNewTaskList
 } from './styles'
 
-const HomeFooter: React.FC = () => {
+type Props = {
+  handleNewTask: () => void
+  handleNewTaskList: () => void
+}
+
+const HomeFooter: React.FC<Props> = ({ handleNewTask, handleNewTaskList }) => {
   return (
     <>
       <Container>
-        <AddNewTask>
+        <AddNewTask onClick={() => handleNewTask && handleNewTask()}>
           <IconContainer>
             <Icon></Icon>
           </IconContainer>
           Nova Tarefa
         </AddNewTask>
-        <AddNewTaskList>Nova Lista</AddNewTaskList>
+        <AddNewTaskList
+          onClick={() => handleNewTaskList && handleNewTaskList()}
+        >
+          Nova Lista
+        </AddNewTaskList>
       </Container>
     </>
   )
