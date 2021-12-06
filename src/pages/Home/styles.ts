@@ -2,17 +2,22 @@ import styled from 'styled-components'
 
 export const Wrapper = styled.div`
   width: 325px;
-  background-color: #F2F2F6;
-  padding-top: 10%;
-  margin: auto
-}`
+  background-color: #f2f2f6;
+  padding-top: 30px;
+  margin: auto;
+`
 
-export const Title = styled.h1`
-  color: #333333;
-  font-size: 20px;
-  font-weight: bold;
-  margin-top: 10px;
-  margin-right: auto;
-}`
+export const Title = styled.h2`
+  margin-top: 15px;
+`
 
-export const ListContainer = styled.div``
+export const ListContainer = styled.div`
+  margin-top: 15px;
+  background-color: white;
+  border-radius: 8px;
+`
+
+export const ErrorMessage = styled.p`
+  margin-top: 15px;
+  font-size: 14px;
+`
