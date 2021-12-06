@@ -4,6 +4,8 @@ O to-do list um aplicativo de gerenciamento de tarefas pessoal que permita aos u
 
 # Configurando o servidor
 
+Para configurar o servidor verifique que vc está no caminho certo: `to-do-fullstack/server`
+
 ### Iniciando a Aplicação
 
 ```bash
@@ -45,9 +47,14 @@ Por fim, teste a API pelo [postman](https://go.postman.co/workspace/My-Workspace
 
 # Iniciando o front-end
 
-Para inciar o projeto rode o seguinte comando:
-`yarn start`
-ou
-`npm run start`
+Para configurar o front-end verifique que vc está no caminho certo: `to-do-fullstack/web`
+
+
+### Iniciando a Aplicação
+
+```bash
+npm install
+npm run start
+```
 
 Abra [http://localhost:3000](http://localhost:3000) para ver a aplicação no browser.
