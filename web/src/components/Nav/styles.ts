@@ -25,8 +25,8 @@ export const EditBtn = styled.button`
 export const OptionsContainer = styled.div<{ visible: boolean }>`
   display: ${(props) => (props.visible ? 'block' : 'none')};
   position: absolute;
-  right: 15px;
   top: 60px;
+  margin-left: 221px;
   border-radius: 8px;
   background-color: white;
 `

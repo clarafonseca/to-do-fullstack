@@ -70,6 +70,17 @@ const TaskList: React.FC = () => {
     }
   }
 
+  const handleDeleteTask = async (id: number) => {
+    try {
+      const response = await api.delete(`/task/${id}`)
+      if (response.status === 204) {
+        loadTaskLists()
+      }
+    } catch (error) {
+      alert(error)
+    }
+  }
+
   const handleNewTask = async (name: string) => {
     try {
       const response = await api.post('/task', {
@@ -85,6 +96,25 @@ const TaskList: React.FC = () => {
     } catch (error) {
       console.log(error)
       setNewTaskModal(false)
+    }
+  }
+
+  const handleNewTaskName = async (taskId: number, value: string) => {
+    try {
+      if (value) {
+        const response = await api.put(`/task/${taskId}`, { name: value })
+        if (response.status === 200) {
+          loadTaskLists()
+        }
+      } else {
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter') {
+            handleDeleteTask(taskId)
+          }
+        })
+      }
+    } catch (error) {
+      alert(error)
     }
   }
 
@@ -125,6 +155,9 @@ const TaskList: React.FC = () => {
                       handleConcludedTask(task.id, !task.concluded)
                     }
                     concluded={task.concluded}
+                    handleChange={(e) =>
+                      handleNewTaskName(task.id, e.target.value)
+                    }
                   ></Task>
                 )
               })
