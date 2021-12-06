@@ -47,6 +47,7 @@ const TaskList: React.FC = () => {
       setError('Falha ao carregar a lista.')
     }
   }
+
   const handleConcludedTask = async (id: number, concluded: boolean) => {
     try {
       const response = await api.put(`/task/${id}`, { concluded: concluded })
@@ -54,7 +55,18 @@ const TaskList: React.FC = () => {
         loadTaskLists()
       }
     } catch (error) {
-      console.log(error)
+      alert(error)
+    }
+  }
+
+  const handleDeleteTaskList = async (id: string) => {
+    try {
+      const response = await api.delete(`/taskList/${id}`)
+      if (response.status === 204) {
+        window.location.href = '/'
+      }
+    } catch (error) {
+      alert(error)
     }
   }
 
@@ -84,7 +96,7 @@ const TaskList: React.FC = () => {
     <>
       <Wrapper>
         <Nav
-          handleDelete={() => console.log('A')}
+          handleDelete={() => handleDeleteTaskList(id)}
           handleFilter={() => setFilterConcluded(!filterConcluded)}
         />
         <Content>

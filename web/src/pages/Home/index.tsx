@@ -148,8 +148,6 @@ const Home: React.FC = () => {
           modalContent={
             <>
               <SelectIpt
-                label="Listas:"
-                labelFor="listas"
                 options={taskLists.map((task) => {
                   const stringId = task.id.toString()
                   return { label: task.name, value: stringId }

@@ -22,7 +22,7 @@ const Nav: React.FC<Props> = ({ handleFilter, handleDelete }) => {
           <Icon />
           Listas
         </GoBack>
-        <EditBtn onClick={() => setShowOptions(true)}>
+        <EditBtn onClick={() => setShowOptions(!showOptions)}>
           <HiDotsHorizontal />
         </EditBtn>
         <OptionsContainer visible={showOptions}>

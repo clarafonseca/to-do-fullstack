@@ -8,7 +8,8 @@ export const Container = styled.div`
   justify-content: space-between;
   position: fixed;
   bottom: 0;
-  z-index: 999;
+  z-index: 1;
+  background-color: #f2f2f6;
 `
 
 export const AddNewTask = styled.button`

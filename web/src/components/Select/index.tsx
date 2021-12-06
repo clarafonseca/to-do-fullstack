@@ -1,30 +1,22 @@
 import React from 'react'
 import Select from 'react-select'
 
-import { customStyles, Container, Label } from './styles'
+import { customStyles, Container } from './styles'
 
 type Props = {
-  label: string
-  labelFor: string
   options: { value: string; label: string }[]
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   handleChange(newValue: any): void
 }
 
-const SelectIpt: React.FC<Props> = ({
-  options,
-  label,
-  labelFor,
-  handleChange
-}) => {
+const SelectIpt: React.FC<Props> = ({ options, handleChange }) => {
   return (
     <>
       <Container>
-        <Label htmlFor={labelFor}>{label}</Label>
         <Select
-          id={labelFor}
           styles={customStyles}
           onChange={handleChange}
+          placeholder="Listas..."
           options={options}
         />
       </Container>

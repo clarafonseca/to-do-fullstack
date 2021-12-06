@@ -4,13 +4,14 @@ import styled from 'styled-components'
 export const Container = styled.div`
   display: flex;
   justify-content: space-between;
+  background-color: #f2f2f6;
 
   margin-left: 15px;
   padding: 15px 0;
 
   position: fixed;
   bottom: 0;
-  z-index: 999;
+  z-index: 1;
 `
 
 export const AddNewTask = styled.button`

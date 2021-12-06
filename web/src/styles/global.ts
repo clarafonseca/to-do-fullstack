@@ -12,7 +12,7 @@ export default createGlobalStyle`
   }
   body {
     color: var(--black);
-    background-color: #F2F2F6;;
+    background-color: #F2F2F6;
   }
   body,
   input,
